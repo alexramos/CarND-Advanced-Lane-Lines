@@ -175,4 +175,16 @@ Here's a [link to my video result](./project_video_output.mp4)
 
 #### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
-Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.  
+The approach I took is largely based off the examples provided in the this section's lessons.  I first use calibration chessboard images to correct for image distortion introduced by the camera's lens.  I then identify line pixels in the driving image using color and gradient thresholding.  Theses pixels are perspective-transformed to a 'birds-eye' view and used to determine a 2nd order polynomial fit for each lane line.  Finally, these fits are used to define the lane's position and overlaid over the original image.
+
+My implementation works very well for the target project video but performs very poorly with the challenge videos.  Specifically, my algorithm fails when it has to deal with muliple vertical lines in a image (as in "challenge\_video.mp4") or very sharp turns (as in "harder\_challenge\_video.mp4").
+
+If I were going to persue this project further, I would make the pipeline more robust by tuning the pipeline to handle the challenge cases as well.  This could entail:
+
+- Tuning image binarization to better handle shadows
+- Tune window-scanning to correctly track sharp curves
+- Try convolution approach for finding best window centers (as described in lesson 34.)
+- Use a deep-learning approach to find the lane.
+
+
+---
